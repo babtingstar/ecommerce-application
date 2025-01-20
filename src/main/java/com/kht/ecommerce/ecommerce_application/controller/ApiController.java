@@ -3,15 +3,16 @@ package com.kht.ecommerce.ecommerce_application.controller;
 import com.kht.ecommerce.ecommerce_application.dto.Cart;
 import com.kht.ecommerce.ecommerce_application.dto.Product;
 import com.kht.ecommerce.ecommerce_application.dto.User;
-import com.kht.ecommerce.ecommerce_application.service.*;
+import com.kht.ecommerce.ecommerce_application.service.CartServiceImpl;
+import com.kht.ecommerce.ecommerce_application.service.ProductServiceImpl;
+import com.kht.ecommerce.ecommerce_application.service.UserServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 public class ApiController {
     @Autowired
@@ -22,31 +23,38 @@ public class ApiController {
     private CartServiceImpl cartService;
 
 
-// 사용자 목록 API
-@GetMapping("/api/users")
-public List<User> getUsers() {
-    return userService.getAllUsers();
-}
+    // 사용자 목록 API
+    @GetMapping("/api/users")
+    public List<User> getUsers() {
+        return userService.getAllUsers();
+    }
 
-// 상품 목록 API
-@GetMapping("/api/products")
-public List<Product> getProducts() {
-    return productService.getAllProduct();
-}
+    // 상품 목록 API
+    @GetMapping("/api/products")
+    public List<Product> getProducts() {
+        return productService.getAllProducts();
+    }
 
-/*
-    HTTPS Status 500 - Internal Server Error 서버에서 생각지 못한 문제 발생
-    Expected one result (or null) to be returned by selectOne(), bu found : 3
-*/
-// 특정 사용자의 장바구니 API
+    // 특정 사용자의 장바구니 API
     // http://localhost:8080/api/carts?userId=1
-@GetMapping("/api/carts")
-public List<Cart> getCart(@RequestParam("userId") int userId) {
-    return cartService.getCartById(userId);
-}
+    @GetMapping("/api/carts")
+    public List<Cart> getCart(@RequestParam("userId") int userId) {
+        return cartService.getCartByUserId(userId);
+    }
+    /*
+        HTTP Status 500 – Internal Server Error 서버에서 생각지못한 문제 발생
+        Expected one result (or null) to be returned by selectOne(), but found: 3
+    */
 
-@GetMapping("/cart{userId}")
-    public String getCartByUserId(@PathVariable("userId") int userId) {
-    return "cart";
-}
+    /*
+    Param = 파라미터 = 매개변수
+     * @RequestParam  부분적으로 저장할 때 사용
+     * @RequestBody     전체적으로 저장할 때 사용
+     * */
+    @PostMapping("/api/join")
+    public void join(@RequestBody User user) {
+        log.info("join user: {}", user);
+        userService.insertUser(user);
+    }
+
 }

@@ -7,6 +7,5 @@ import java.util.List;
 
 @Mapper
 public interface ProductMapper {
-    //getAllProducts
-    List<Product> getAllProduct();
+    List<Product> getAllProducts();
 }

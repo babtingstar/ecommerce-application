@@ -9,12 +9,10 @@ import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
-
     @Autowired
     CartMapper cartMapper;
-
     @Override
-    public List<Cart> getCartById(int userId) {
-        return cartMapper.getCartById(userId);
+    public List<Cart> getCartByUserId(int userId) {
+        return cartMapper.getCartByUserId(userId);
     }
 }

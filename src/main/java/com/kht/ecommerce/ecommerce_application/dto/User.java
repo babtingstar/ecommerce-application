@@ -1,18 +1,18 @@
 package com.kht.ecommerce.ecommerce_application.dto;
-
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
-@Getter
 @Setter
-@ToString
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String email;
     private String username;
     private String password;
@@ -21,7 +21,7 @@ public class User {
     private String phone;
     private String city;
     private String street;
-    private int StreetNumber;
+    private int streetNumber;
     private String zipcode;
     private String geolocationLat;
     private String geolocationLong;

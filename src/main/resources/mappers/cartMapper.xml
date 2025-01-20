@@ -2,19 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kht.ecommerce.ecommerce_application.mapper.CartMapper">
-<!--    <select id="getCartByUserId">-->
-<!--        SELECT cp.cartId, p.title, p.price, cp.quantity-->
-<!--        FROM cart_products cp-->
-<!--            JOIN products p ON cp.productId = p.id-->
-<!--        WHERE cp.cartId = #{cartId};-->
-<!--    </select>-->
+
+
     <select id="getCartByUserId">
-        select c.id, c.userId, c.date,
-               p.title, p.price,
-               cp.quantity
-        from carts c
-        join cart_products cp on cp.cartid = c.id
-        join products p on p.id = cp.productId
-        where c.userId = #{userId};
+    SELECT  C.id, C.userId, C.date,
+            P.title, P.price,
+            CP.quantity
+
+    FROM carts C
+    JOIN cart_products CP  ON CP.cartId =  C.id
+    JOIN products P   ON P.id = CP.productId
+
+    WHERE C.userId = #{userId}
+
     </select>
+    <!--
+    <select id="getCartByUserId">
+        SELECT cp.cartId, p.title, p.price, cp.quantity
+        FROM cart_products cp
+            JOIN products p
+                ON cp.productId = p.id
+
+        WHERE cp.cartId = #{cartId}
+    </select>
+    -->
 </mapper>

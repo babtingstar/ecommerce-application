@@ -7,6 +7,5 @@ import java.util.List;
 
 @Mapper
 public interface CartMapper {
-    // getCartByUserId
-    List<Cart> getCartById(int userId);
+    List<Cart> getCartByUserId(int userId);
 }

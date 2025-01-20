@@ -1,7 +1,5 @@
 package com.kht.ecommerce.ecommerce_application.config;
 
-
-
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -51,7 +49,7 @@ public class DBConfig {
         sessionFactoryBean.setMapperLocations(
                 applicationContext.getResources("classpath:/mappers/**.xml")  );
 
-        sessionFactoryBean.setTypeAliasesPackage("com.kht.ecommerce.ecommerce_application.dto");
+        sessionFactoryBean.setTypeAliasesPackage("com.kht.ecommerce.ecommerce-application.dto");
 
         sessionFactoryBean.setConfigLocation(
                 applicationContext.getResource("classpath:mybatis-config.xml"));
