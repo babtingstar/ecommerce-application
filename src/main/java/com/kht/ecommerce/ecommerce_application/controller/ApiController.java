@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -55,6 +56,29 @@ public class ApiController {
     public void join(@RequestBody User user) {
         log.info("join user: {}", user);
         userService.insertUser(user);
+    }
+
+    @GetMapping("/api/existEmail")
+    public Map<String, Object> existEmail(@RequestParam("email") String email) {
+        /*
+        앞으로 아래와 같은 기능은 ServiceImpl 에서 작성할 것
+        boolean exist = userService.existByEmail(email);
+        Map<String, Object> map = new HashMap<>();
+        map.put("exists", exists);
+        if(exists) {
+        map.put("msg', "using email");
+        } else {
+        map.put("msg", "available email);
+        }
+        return map;
+        */
+        return userService.existByEmail(email);
+    }
+
+    @PostMapping("/api/products")
+    public void addProduct(@RequestBody Product product) {
+        log.info("add product: {}", product);
+        productService.addProduct();
     }
 
 }

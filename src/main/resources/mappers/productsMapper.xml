@@ -7,4 +7,9 @@
         SELECT id, title, price, description, category, image
         FROM products
     </select>
+
+    <insert id="addProduct">
+        insert into products (id, title, price, description, category, image, rating_rate, rating_count)
+        values (#{id}, #{title}, #{price}, #{description}, #{category}, #{image}, #{ratingRate}, #{ratingCount})
+    </insert>
 </mapper>

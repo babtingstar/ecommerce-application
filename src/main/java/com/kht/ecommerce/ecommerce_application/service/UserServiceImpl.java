@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int existByEmail(String email) {
-        return 0;
+    public boolean existByEmail(String email) {
+        return userMapper.existByEmail(email) > 0;
     }
 }

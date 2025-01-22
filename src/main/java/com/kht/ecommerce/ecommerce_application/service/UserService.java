@@ -11,5 +11,5 @@ public interface UserService {
     void insertUser(User user);
 
     // 이메일 존재 유무 확인
-    int existByEmail(String email);
+    boolean existByEmail(String email);
 }
