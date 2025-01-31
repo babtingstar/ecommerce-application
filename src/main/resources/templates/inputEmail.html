@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Title</title>
+    <link href="/favicon.ico" rel="icon">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<input id="emailInput" placeholder="이메일 입력" type="email"/>
+<button id="sendCodeBtn">인증번호 보내기</button>
+<br/>
+<input disabled id="codeInput" placeholder="인증번호 입력" type="text"/>
+<button disabled id="verifyCodeBtn">인증번호 확인</button>
+<script>
+    $('#sendCodeBtn').click(function () {
+        $('#codeInput').val();
+        let email = $('#emailInput').val().toLowerCase();
+        if (!email) {
+            alert('이메일을 입력해주세요.');
+            return;
+        }
+
+        console.log('Sending email:', email);
+        $.ajax({
+            url: '/api/verification/send',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({email: email}),
+            success: function (response) {
+                alert(response);
+                $('#emailInput').prop('disabled', true);
+                $('#codeInput').prop('disabled', false);
+                $('#verifyCodeBtn').prop('disabled', false);
+            },
+            error: function (xhr, status, error) {
+                alert('오류 발생: ' + error);
+                $('#emailInput').prop('disabled', false);
+            }
+        });
+    });
+
+    $('#verifyCodeBtn').click(function () {
+        let email = $('#emailInput').val().toLowerCase();
+        let code = $('#codeInput').val();
+        if (!email || !code) {
+            alert('이메일과 인증번호를 입력해주세요.');
+            return;
+        }
+        console.log('Verifying email:', email, 'with code:', code);
+        $.ajax({
+            url: '/api/verification/verify',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({email: email, code: code}),
+            success: function (response) {
+                alert(response);
+                if (response.includes('successful')) {
+                    $('#codeInput').prop('disabled', true);
+                    $('#verifyCodeBtn').prop('disabled', true);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert('오류 발생: ' + error);
+            }
+        });
+    });
+</script>
+</body>
+</html>

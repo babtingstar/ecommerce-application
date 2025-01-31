@@ -2,12 +2,37 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
     <link rel="icon" href="/favicon.ico">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
+    <h1>유저 상세정보</h1>
+    <div id="userDetail"></div>
+<script>
+    const params = new URLSearchParams(window.location.search);
+     const id = params.get('id');
+     console.log(id);
+    $.ajax({
+      url: `/api/user/${id}`,
+      method: "GET",
+      success: function (data) {
+          $("#userDetail").html(`
+            <h1>${data.lastname}   ${data.firstname}</h1>
+            <p>${data.email}</p>
+            <p>${data.username}</p>
+            <p>${data.phone}</p>
+            <p>${data.city}</p>
+            <p>${data.street}</p>
+            <!-- /user/edit?id="$ { data.id }    => ViewController 에서
+                 user-edit.html 템플릿과 연결하는 url
+            -->
+            <a href="/user/edit?id=${data.id}">정보 수정하기</a>
+          `);
+      }
 
+    })
+</script>
 </body>
 </html>

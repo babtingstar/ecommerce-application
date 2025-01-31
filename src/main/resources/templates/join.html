@@ -43,23 +43,24 @@
 </form>
 
 <script>
-    $("#joinForm").submit(function (event) {
+    $("#joinForm").submit(function(event) {
         event.preventDefault();
-        // 이메일 중복확인
-        $.ajax({
-            url: "/api/existEmail",
-            method: "GET",
-            success: function (data) {
-                if (data) {
-                    alert("이미 사용중인 이메일입니다."); // count > 0 존재
-                } else {
-                    alert("사용 가능한 이메일입니다.");
-                }
-            },
-            error: function (error) {
-                console.log(error);
+        //  이메일 중복확인 /api/existEmail
+    $.ajax({
+        url: "/api/existEmail",
+        method: "GET",
+        success: function(data) {
+            if(data) {
+                alert("이미 사용중인 이메일입니다."); // count >0 이상이면 존재
+                return;
+            } else{
+                alert("사용 가능한 이메일입니다.");
             }
-        })
+        },
+        error: function(data) {
+            alert("데이터베이스 연결할 수 없습니다.");
+        }
+    })
 
         $.ajax({
             url: "/api/join",
@@ -81,11 +82,11 @@
                 streetNumber: $("#streetNumber").val(),
                 zipcode: $("#zipcode").val()
             }),
-            success: function () { // success에서 회원가입을 완료한 후 전달할게 없다면 data 작성 x
+            success: function() { // success에서 회원가입을 완료한 후 전달할게 없다면 data 작성 x
                 alert("회원가입이 완료되었습니다.");
                 window.location.href = "/"; //회원가입이 완료된 후 이동할 페이지 설정
             },
-            error: function (error) {
+            error: function(error) {
                 console.log(error);
                 alert("회원가입을 할 수 없습니다.");
             }
